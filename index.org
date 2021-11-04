@@ -1,0 +1,3 @@
+#+TITLE: Parallel Computing
+#+AUTHOR: Isitha Subasinghe
+#+INCLUDE: ram.org

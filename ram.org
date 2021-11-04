@@ -1,0 +1,55 @@
+* RAM model
+John Von Neumann provided the stored program concept, referred to as the von Neumann Architecture or model of computation which leads us to the Random Access Machine (RAM) model.There are three concepts:
+- random access memory which stores information and is accessible independently of its content.
+- a central processing unit that access the RAM using Fetch-Decode-Execute-Writeback cycle and
+- input/output devices
+
+** Problem Complexity
+The RAM model can be used as a measure of the complexity of sequential algorithms.
+* PRAM
+The **Parallel Random Access Machine** or PRAM model of parallel computation is an idealization of parallel architecture proposed by Fortune and Wyllie in 1978. See Karp and Ramachandran "A Survey of Parallel Algorithms for Shared-Memory Machines", for a good overview of PRAM work.
+- The PRAM model can be described as consisting of *p* identical RAM processors, each with its own private memory of constant size, that all share a single large memory containing *m* identical constant size memory elements.
+- The RAM Fetch-Decode-Execute-Writeback cycle is performed synchronously by the PRAM processors.
+- PRAM processors have no direct communication among each other, they can only read and write to memory.
+
+** PRAM Shared Memory
+*** EREW
+- exclusive read, exclusive write
+*** CREW
+- concurrent read, exclusive write
+*** CRCW
+- concurrent read, concurrent write
+*** ERCW
+- exclusive read, concurrent write
+
+** Conflict Resolution
+*** COMMON
+- Value is written iff all processors write the same value
+*** ARBITARY
+- A processor is picked at random to write
+*** PRIORITY
+- The processor with the lowest identifier among conflicting processors can write
+*** COMBINING
+- A function of the conflicting values is written
+** Relative Power of PRAM model variations
+- The COMMON, ARBITARY, PRIORITY, COMBINING models are listed in increasing order of power
+- Any problem solvable on an EREW PRAM is solvable on a CREW PRAM
+- any problem solvable on a CREW PRAM is solvable on a COMMON CRCW PRAM without any increase in complexity, but not vice versa.
+*** Not a big difference in expressiveness however:
+- Any algorithm for a CRCW PRAM in the PRIORITY model can be "simulated" by an EREW PRAM with the same number of processors and with the parallel algorithm complexity increased by only a factor of $\mathcal{O}(log(p))$
+- Any algorithm for a PRIORITY PRAM can be simulated by a COMMON PRAM with no increase in parallel algorithm complexity, provided sufficiently many processors are available.
+
+* Work and Optimal Processor Allocation
+Consider a problem of size $\textit{n}$ and best sequential algorithm complexity being a function of $\textit{n}$, $\mathcal{T}(n)$. Consider a PRAM algorithm that solves the problem in $t(n)$ parallel steps with $p(n)$ processors. The quantity:
+$w(n)=t(n)*p(n)$ represents the **work** done by the parallel algorithm. If the work done by the best sequential algorithm is the same as the parallel algorithm, then the parallel algorithm provides optimal processor allocation.
+
+* Speedup
+- $Speedup(n) = \frac{T(n)}{t(n)}$
+* Limits of Parallel Computing
+- Consider an **NP**-complete problem like boolean satisfiability. For example, the 3-SAT problem is to find values of three literals $a,b,c \in {0, 1}$ that satisfies a given boolean expression. For 3-SAT the best known deterministic algorithm takes 1.473^n steps. Let's say the number of literas is $n$ and the number of clauses is $m$ with $n$ literals per clause. If every possible assignment is fully evaluated to find a solution (exhaustive search algorithm) it would take $\mathcal{O}(mn2^n)$ time steps. We generally can't reduce this to a polynomial runtime since this requires $2^n$ processors, something that is infeasible.
+* Parallel Computation Thesis
+Whatever can be solved in polynomially bounded space in a Turing Machine using unlimited time can be solved in polynomially bounded time on a parallel machine using an unlimited number of processors and conversely.
+* Highly parallel problems
+The set of problems solvable in polylogarithmic time with a polynomial number of processors is called **Nick's Class**. Searching a sorted list is a well known problem in **NC**.
+* Inherently sequential problems?
+All problems in **NC** solved using a polynomial number of processors can be solved by a single processor in polynomial time, therefore $\mathbf{NC} \in \mathbf{P}$. There are no known polylogarithmic algorithms using a polynomial number of processors that solve any **P**-complete problems. Therefore it is generally thought that $\mathbf{NC} \neq \mathbf{P}$.
