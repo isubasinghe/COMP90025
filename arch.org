@@ -1,0 +1,79 @@
+* Parallelism on a single Processor
+** Procesor and memory
+** Pipelining
+** Word size
+** Co-Processor
+** Single Instruction Multiple Data
+** Multicore Processor
+* Parallel Computer Architecture
+** Taxonomy
+** Shared memory multiprocessor
+** Switching Interconnection Network
+** Distributed memory
+** Static Interconnection Network
+* Parallelism from Pipeline, Superpipeline and Superscalar architectures
+The CPU can pipeline the fundemental stages to complete 1 instruction per cycle rather than 1 instruction per 4 cycles.
+Thus the 4 stages are active in parallel. Superpipelining breaks each fundemental stage into more stages, to further reduce the time
+between instruction completions. Superscalar simply uses multiple pipelines where multiple instructions can be executing in parallel.
+* Co-Processor
+A co-processor augments an existing processors functionality. Co-processors that connect directly to the processor are not so common these days, however quasi co-processors are commonly provided via the Peripheral Component Interconnect Bus.
+* Single Instruction Multiple Data
+- For optimal performance data should be held in aligned contiguous memory.
+* Flynn's Classification of parallel architectures
+** SISD
+Single Instruction Single Data
+** SIMD
+Single Instruction Multiple Data
+*** Array Processor aka SIMT
+Single Instruction Multiple Threads, each processing element does the same operation on an element of an array.
+*** Pipelined Processor
+Each processing element does a dedicated operation on a queue of data
+*** Associative Processor
+Each processing element operates on data content
+** MISD
+Multiple Instruction Single Data
+** MIMD
+Multiple Instruction Multiple Data
+* SIMD vs MIMD
+This is effectively a question of SIMD core vs non-SIMD core
+- Modern processors are multicore with each core providing some SIMD operations.
+- SIMD is more efficient at vector operations than an equivalent number of non-SIMD cores undertaking the same work.
+- SIMD cores are larger than non-SIMD cores, maybe leading to slower clock speeds, and maybe less of them fit in a single multicore processor.
+- SIMD is not useful for all problems
+- SIMD is harder to program
+
+* Schwartz's parallel machine classes
+Schwartz defines two general approaches to arranging processors and memory.
+** Paracomputers
+Paracomputers seperate the memory from the processors. The memory is shared and processors communicate via shared memory. Memory access time is the same for all computers
+** Ultracomputers
+Distribute the memory over processors. A processor can access its own module in constant time but accessing memory on remote modules can take longer.
+* Shared Memory Multiprocessor
+Otherwise known as a **symmetric multi-processor** or SMP machines, a processor is sometimes referred to as a socket and each core on each processor has equal or symmetric access to the shared main memory.
+** SMP limitations
+The SMP architecture reaches limitations on how many processors (cores) and how much memory can be connected via bus technology:
+- Each core is effectively competing for bus access to main memory. Doubling the number of cores, doubles the total memory access request rate. Queueing Theory shows that memory access latency
+  increases sharply as the request rate approaches the maximum service rate of the memory sub-system.
+- Doubling the number of bus channels, to increase bus service rate, doubles the area consumed on the Printed Circuit Board by the bus. PCB area is required for processor sockets, memory modules, PCI bus and other I/O devices.
+  - Using multi-layer PCBs can alleviate this - however more expensive with more layers, more dense (heavy), and harder to exhaust heat.
+- Doubling memory modules and/or processors increase the bus length. Longer bus lengths require more power and signal propagation delays impact bus frequencies.
+- Doubling the number of cores on the processor may break the symmetric memory access property since all of the cores may no longer be able to directly connect to level 3 cache.
+* Switching networks
+- Processors are connected to output modules (memory) via a sequence of switches that provide a dedicated connection from any input to any output.
+- Symmetric access to memory is maintained
+- A single input connects to a single output at any one time
+- Switching networks (fabrics) need to change switch states to change connections between processor and memory modules.
+- **Switch complexity** is the number of fundemental 2x2 switches needed to connect $n * n$ modules.
+- Switch networks are typically more expensive but scalable beyond what a multi-channel bus-based network can achieve.
+- An n-channel bus network connecting n processors to n memory modules is similar to an $n*n$ switch. However, we can use $\mathcal{O}(n*log(n))$
+  switches to connect n processors to n memory modules as well, as we will see later in the subject.
+* Distributed memory
+Distributed shared memory is no longer uniform but rather Non-Uniform Memory Access (NUMA).
+- The DSM architecture can use buses, dynamics interconnection networks(ICN) or static ICNs where connection between modules are fixed.
+- The DSM architecture maintains a single address space for each processor, that is distributed over the memory modules, with some memory modules being local and others being remote.
+* Static interconnection network
+Static ICNs use point to point connections between individual process-memory modules, or nodes.
+- Each node is connected directly to some number of other nodes. The number of connections is called the node's degree
+- Message passing/comms between some nodes may require routing via intermediate nodes.
+- The maximum of all shortest paths between all pairs of nodes in the ICN in the ICN's **diameter** bounds the maximum number of hops for IPC or memory acces latency in the case of DSM over static ICN.
+- The product of degree and diameter is called the **cost**. $cost(n) = degree(n) * diameter(n)$.

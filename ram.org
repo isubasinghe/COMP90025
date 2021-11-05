@@ -53,3 +53,9 @@ Whatever can be solved in polynomially bounded space in a Turing Machine using u
 The set of problems solvable in polylogarithmic time with a polynomial number of processors is called **Nick's Class**. Searching a sorted list is a well known problem in **NC**.
 * Inherently sequential problems?
 All problems in **NC** solved using a polynomial number of processors can be solved by a single processor in polynomial time, therefore $\mathbf{NC} \in \mathbf{P}$. There are no known polylogarithmic algorithms using a polynomial number of processors that solve any **P**-complete problems. Therefore it is generally thought that $\mathbf{NC} \neq \mathbf{P}$.
+* Size and Efficiency
+ The work, w(n) of a parallel algorithm of size $n$ expresses the maximum number of operations that the parallel algorithm will undertake. The **size**, Size(n) of an algorithm is the number of operations that it takes to solve a problem of size $n$, which for a sequential algorithm is $\mathcal{T}(n)$. Generally: $\mathcal{T}(n) \leq Size(n) \ leq w(n)$.
+* Using fewer processors
+If a parallel algorithm, 1, taking $t_1$ time is known for a number $p_1$, of processors then a parallel algorithm, 2, for a number $p_2 < p_1$ of processors can be defined that increases $t_1$ by a factor of $\mathcal{O}(\frac{p_1}{p_2})$.
+* Brent's Principle
+If an algorithm with size x operations can be performed in t time on a PRAM with sufficiently many processors, then it can be performed in time $t + \frac{x-t}{p}$ on a PRAM with $p$ processors.
