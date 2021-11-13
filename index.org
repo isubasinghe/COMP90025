@@ -2,3 +2,5 @@
 #+AUTHOR: Isitha Subasinghe
 #+INCLUDE: ram.org
 #+INCLUDE: arch.org
+#+INCLUDE: prefix.org
+#+INCLUDE: algorithms.org

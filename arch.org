@@ -1,16 +1,16 @@
 * Parallelism on a single Processor
-** Procesor and memory
-** Pipelining
-** Word size
-** Co-Processor
-** Single Instruction Multiple Data
-** Multicore Processor
+- Procesor and memory
+- Pipelining
+- Word size
+- Co-Processor
+- Single Instruction Multiple Data
+- Multicore Processor
 * Parallel Computer Architecture
-** Taxonomy
-** Shared memory multiprocessor
-** Switching Interconnection Network
-** Distributed memory
-** Static Interconnection Network
+- Taxonomy
+- Shared memory multiprocessor
+- Switching Interconnection Network
+- Distributed memory
+- Static Interconnection Network
 * Parallelism from Pipeline, Superpipeline and Superscalar architectures
 The CPU can pipeline the fundemental stages to complete 1 instruction per cycle rather than 1 instruction per 4 cycles.
 Thus the 4 stages are active in parallel. Superpipelining breaks each fundemental stage into more stages, to further reduce the time
@@ -24,11 +24,11 @@ A co-processor augments an existing processors functionality. Co-processors that
 Single Instruction Single Data
 ** SIMD
 Single Instruction Multiple Data
-*** Array Processor aka SIMT
+- Array Processor aka SIMT
 Single Instruction Multiple Threads, each processing element does the same operation on an element of an array.
-*** Pipelined Processor
+- Pipelined Processor
 Each processing element does a dedicated operation on a queue of data
-*** Associative Processor
+- Associative Processor
 Each processing element operates on data content
 ** MISD
 Multiple Instruction Single Data

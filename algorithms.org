@@ -1,0 +1,11 @@
+* Algorithms
+** Fill
+- Class - EREW
+-  Analysis - $\mathcal{O}(n)$
+** Summation
+- Class - EREW
+- Processors - $\mathcal{O}(\frac{n}{2})$
+- Analysis $\mathcal{O}(log(n))$
+** Optimal Summation
+- Class - EREW
+- Analysis $\mathcal{O}(\frac{n}{p} + log(p))$
